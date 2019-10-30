@@ -18,16 +18,6 @@ build:
       code: |
         dotnet publish -o publish
     - script:
-      name: test-restore
-      cwd: test/YAHCMS.BlogService.Tests
-      code: |
-        dotnet restore
-    - script:
-      name: test-build
-      cwd: test/YAHCMS.BlogService.Tests
-      code: |
-        dotnet build
-    - script:
       name: test-run
       cwd: test/YAHCMS.BlogService.Tests
       code: |
