@@ -31,7 +31,7 @@ namespace YAHCMS.BlogService.Tests
             var result = controller.Create(b);
             var blogs = controller.GetUserBlogs(1).Value;
         
-
+            Assert.NotNull(null);
             Assert.Equal((result as ObjectResult).StatusCode, 201);
             Assert.Equal(((result as ObjectResult).Value as Blog).ID, blogs.Count());
         }
