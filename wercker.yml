@@ -19,7 +19,7 @@ build:
         dotnet publish -o publish
     - script:
       name: test-run
-      cwd: test/YAHCMS.BlogService.Tests
+      cwd: tests/YAHCMS.BlogService.Tests
       code: |
         dotnet test
     - script:
