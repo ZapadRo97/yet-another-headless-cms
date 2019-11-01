@@ -26,6 +26,7 @@ namespace YAHCMS.BlogService.Controllers
             if(p == null)
                 return BadRequest();
             
+            post.Blog = null;
             return Created($"{p.ID}", post);
         }
 
