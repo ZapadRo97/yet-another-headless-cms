@@ -18,6 +18,7 @@ namespace YAHCMS.BlogService.Models
         public string Country {get; set;}
         public ICollection<Post> Posts {get; set;}
 
+        public Blog() {}
         public Blog(long userID)
         {
             this.UserID = userID;

@@ -23,6 +23,11 @@ build:
       code: |
         dotnet test
     - script:
+      name: integration-test-run
+      cwd: tests/YAHCMS.BlogService.Tests.Integration
+      code: |
+        dotnet test
+    - script:
       name: copy binary
       cwd: src/YAHCMS.BlogService
       code: |
