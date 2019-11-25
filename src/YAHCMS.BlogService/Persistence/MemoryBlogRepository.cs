@@ -99,7 +99,7 @@ namespace YAHCMS.BlogService.Persistence
         {
             Post p = RemovePost(blogID, post.ID);
             if(p != null)
-                GetBlog(blogID).Posts.Add(p);
+                GetBlog(blogID).Posts.Add(post);
 
             return p;
         }
@@ -119,7 +119,7 @@ namespace YAHCMS.BlogService.Persistence
         {
             Blog blog = Delete(b.ID);
             if(blog != null)
-                blog = Add(blog);
+                blog = Add(b);
 
             return blog;
 

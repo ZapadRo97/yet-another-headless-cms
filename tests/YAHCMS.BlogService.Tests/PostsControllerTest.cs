@@ -88,6 +88,7 @@ namespace YAHCMS.BlogService.Tests
             var post = (result as ObjectResult).Value as Post;
 
             Assert.NotEqual(post.ID, 0);
+            //why?
             //Assert.NotNull(post.Blog);
 
             blog = repository.GetBlog(blog.ID);
