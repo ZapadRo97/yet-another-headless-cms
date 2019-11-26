@@ -1,6 +1,8 @@
 
 
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using YAHCMS.BlogService.Models;
 
 namespace YAHCMS.BlogService.Persistence
@@ -17,52 +19,73 @@ namespace YAHCMS.BlogService.Persistence
 
         public Blog Add(Blog blog)
         {
-            throw new System.NotImplementedException();
+            var b = context.Add(blog);
+            context.SaveChanges();
+            return b.Entity;
         }
 
         public Post AddPost(long blogID, Post post)
         {
-            throw new System.NotImplementedException();
+            Blog b = context.blogs.FirstOrDefault(b => b.ID == blogID);
+            if(b == null)
+                return null;
+
+            post.Blog = b;
+            var p = context.Add(post);
+            context.SaveChanges();
+            return p.Entity;
         }
 
         public Blog Delete(long blogID)
         {
-            throw new System.NotImplementedException();
+            Blog b = this.GetBlog(blogID);
+            context.Remove(b);
+            return b;
         }
 
         public Blog GetBlog(long blogID)
         {
-            throw new System.NotImplementedException();
+            return context.blogs.FirstOrDefault(b => b.ID == blogID);
         }
 
         public Post GetBlogPost(long blogID, long postID)
         {
-            throw new System.NotImplementedException();
+            return GetBlogPosts(blogID).FirstOrDefault(p => p.ID == postID);
         }
 
         public IEnumerable<Post> GetBlogPosts(long blogID)
         {
-            throw new System.NotImplementedException();
+            return context.blogs.FirstOrDefault(b => b.ID == blogID).Posts;
         }
 
         public IEnumerable<Blog> GetUserBlogs(long userID)
         {
-            throw new System.NotImplementedException();
+            return context.blogs.Where(b => b.UserID == userID).Select(b => b);
         }
 
         public Post RemovePost(long blogID, long postID)
         {
-            throw new System.NotImplementedException();
+            Post p = this.GetBlogPost(blogID, postID);
+            context.Remove(p);
+            return p;
         }
 
         public Blog Update(Blog blog)
         {
-            throw new System.NotImplementedException();
+            context.Entry(blog).State = EntityState.Modified;
+            context.SaveChanges();
+            return blog;
         }
 
         public Post UpdatePost(Post post, long blogID)
         {
-            throw new System.NotImplementedException();
+            Blog b = GetBlog(blogID);
+            if(b == null)
+                return null;
+
+            context.Entry(post).State = EntityState.Modified;
+            context.SaveChanges();
+            return post;
         }
     }
 }

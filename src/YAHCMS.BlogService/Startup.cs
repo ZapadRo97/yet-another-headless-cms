@@ -19,19 +19,24 @@ namespace YAHCMS.BlogService
     public class Startup
     {
 
-        private readonly ILogger logger;
-        public Startup(IConfiguration configuration, ILogger<Startup> logger)
+        private ILogger logger;
+        public Startup(IConfiguration configuration, IHostEnvironment env)
         {
             Configuration = configuration;
-            this.logger = logger;
+            HostEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostEnvironment HostEnvironment {get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            var serviceProvider = services.BuildServiceProvider();
+            logger = serviceProvider.GetService<ILogger<Startup>>();
+            services.AddSingleton(typeof(ILogger), logger);
+            
 
             //not working in tests
             var transient = true;
@@ -51,7 +56,8 @@ namespace YAHCMS.BlogService
                 services.AddEntityFrameworkSqlServer()
                 .AddDbContext<BlogDbContext>(options 
                     => options.UseSqlServer(Configuration["ConnectionString"]));
-                
+            
+                logger.LogInformation(Configuration["ConnectionString"]);
             }
 
         

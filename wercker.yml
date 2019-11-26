@@ -1,4 +1,12 @@
 box: mcr.microsoft.com/dotnet/core/sdk:3.0.100
+services:
+  - id: mcmoe/mssqldocker:latest
+    env:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: <YourStrong@Passw0rd>
+      MSSQL_DB: YAHCMS
+      MSSQL_USER: zpd
+      MSSQL_PASSWORD: <YourStrong@Passw0rd>
 no-response-timeout: 10
 build:
   steps:
@@ -17,11 +25,22 @@ build:
       cwd: src/YAHCMS.BlogService
       code: |
         dotnet publish -o publish
+        dotnet tool install --global --version 3.0.0 dotnet-ef
+        export PATH="$PATH:/root/.dotnet/tools"
     - script:
       name: test-run
       cwd: tests/YAHCMS.BlogService.Tests
       code: |
         dotnet test
+        env
+    - script:
+      name: integration-migrate
+      cwd: src/YAHCMS.BlogService
+      code: |
+        export TRANSIENT=false
+        export CONNECTIONSTRING="server=$MSSQLDOCKER_PORT_1433_TCP_ADDR"
+        export CONNECTIONSTRING="$CONNECTIONSTRING;database=YAHCMS;User ID=SA;password=<YourStrong@Passw0rd>;"
+        dotnet ef database update
     - script:
       name: integration-test-run
       cwd: tests/YAHCMS.BlogService.Tests.Integration

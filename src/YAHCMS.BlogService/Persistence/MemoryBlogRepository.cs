@@ -112,7 +112,7 @@ namespace YAHCMS.BlogService.Persistence
 
         public Blog GetBlog(long blogID)
         {
-            return blogs.FirstOrDefault(b => b.ID == blogID);
+            return blogs.ToList().FirstOrDefault(b => b.ID == blogID);
         }
 
         public Blog Update(Blog b)
