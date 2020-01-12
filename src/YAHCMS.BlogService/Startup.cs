@@ -36,6 +36,15 @@ namespace YAHCMS.BlogService
             var serviceProvider = services.BuildServiceProvider();
             logger = serviceProvider.GetService<ILogger<Startup>>();
             services.AddSingleton(typeof(ILogger), logger);
+
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = "http://localhost:5000";
+                options.RequireHttpsMetadata = false;
+
+                options.Audience = "blogservice";
+            });
             
 
             //not working in tests
@@ -77,6 +86,7 @@ namespace YAHCMS.BlogService
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
