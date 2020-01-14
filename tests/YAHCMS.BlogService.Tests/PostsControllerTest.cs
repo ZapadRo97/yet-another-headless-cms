@@ -21,7 +21,7 @@ namespace YAHCMS.BlogService.Tests
         {
             repository = new MemoryBlogRepository();
             controller = new PostsController(repository);
-            blog = new Blog(1, "name", "desc");
+            blog = new Blog("tt", "name", "desc");
             repository.Add(blog);
         }
         //BlogsController blogsController = new BlogsController(new MemoryBlogRepository());

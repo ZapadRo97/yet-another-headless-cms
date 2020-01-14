@@ -58,7 +58,7 @@ namespace YAHCMS.BlogService.Persistence
             return context.blogs.FirstOrDefault(b => b.ID == blogID).Posts;
         }
 
-        public IEnumerable<Blog> GetUserBlogs(long userID)
+        public IEnumerable<Blog> GetUserBlogs(string userID)
         {
             return context.blogs.Where(b => b.UserID == userID).Select(b => b);
         }

@@ -27,9 +27,9 @@ namespace YAHCMS.BlogService.Tests
         [Fact]
         public void CreateBlog() {
             //first parameter is userID
-            Blog b = new Blog(1, "name", "desc");
+            Blog b = new Blog("tt", "name", "desc");
             var result = controller.Create(b);
-            var blogs = controller.GetUserBlogs(1).Value;
+            var blogs = controller.GetUserBlogs("tt").Value;
         
 
             Assert.Equal((result as ObjectResult).StatusCode, 201);
@@ -38,7 +38,7 @@ namespace YAHCMS.BlogService.Tests
 
         [Fact]
         public void CreateBlogsAddToList() {
-            var userID = 2;
+            var userID = "aa";
 
             Blog b1 = new Blog(userID, "the name", "the description");
             Blog b2 = new Blog(userID, "name", "desc", "en", "France");
@@ -54,7 +54,7 @@ namespace YAHCMS.BlogService.Tests
         [Fact]
         public void DeleteBlogRemovesFromList()
         {
-            int userID = 2;
+            var userID = "dd";
             Blog sampleBlog = new Blog(userID, "blog1", "description");
             controller.Create(sampleBlog);
 
@@ -82,7 +82,7 @@ namespace YAHCMS.BlogService.Tests
         [Fact]
         public void UpdateBlogModifiesBlogsList()
         {
-            int userID = 2;
+            var userID = "dd";
             Blog sampleBlog = new Blog(userID, "blog1", "description");
             var result = controller.Create(sampleBlog);
 
@@ -102,7 +102,7 @@ namespace YAHCMS.BlogService.Tests
         [Fact]
         public void UpdateNotExistentBlogReturnsNotFound()
         {
-            Blog blog = new Blog(1, "name", "desc");
+            Blog blog = new Blog("tt", "name", "desc");
             var result = controller.Update(blog, 999);
             Assert.True(result is NotFoundResult);
         }

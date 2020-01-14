@@ -104,7 +104,7 @@ namespace YAHCMS.BlogService.Persistence
             return p;
         }
 
-        public IEnumerable<Blog> GetUserBlogs(long userID)
+        public IEnumerable<Blog> GetUserBlogs(string userID)
         {
             
             return (from b in blogs where b.UserID == userID select b).ToArray();

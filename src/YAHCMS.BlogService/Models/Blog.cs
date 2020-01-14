@@ -9,7 +9,7 @@ namespace YAHCMS.BlogService.Models
         [Required]
         public long ID {get; set;}
         [Required]
-        public long UserID {get; set;}
+        public string UserID {get; set;}
         public string Name {get; set;}
         public string Description {get; set;}
         public DateTime Published {get; set;}
@@ -19,7 +19,7 @@ namespace YAHCMS.BlogService.Models
         public ICollection<Post> Posts {get; set;}
 
         public Blog() {}
-        public Blog(long userID)
+        public Blog(string userID)
         {
             this.UserID = userID;
             Posts = new List<Post>();
@@ -28,13 +28,13 @@ namespace YAHCMS.BlogService.Models
             Updated = DateTime.Now;
         }
 
-        public Blog(long userID, String name, String description) : this(userID)
+        public Blog(string userID, String name, String description) : this(userID)
         {
             this.Name = name;
             this.Description = description;
         }
 
-        public Blog(long userID, String name, String description, 
+        public Blog(string userID, String name, String description, 
             String language, String country) : this(userID, name, description)
         {
             this.Language = language;

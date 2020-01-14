@@ -7,7 +7,7 @@ namespace YAHCMS.BlogService.Persistence
 {
     public interface IBlogRepository
     {
-        IEnumerable<Blog> GetUserBlogs(long userID);
+        IEnumerable<Blog> GetUserBlogs(string userID);
         Blog GetBlog(long blogID);
         Blog Add(Blog blog);
         Blog Delete(long blogID);

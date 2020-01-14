@@ -24,7 +24,7 @@ namespace YAHCMS.BlogService.Controllers
         [HttpGet("user/{userID}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<IEnumerable<Blog>> GetUserBlogs(long userID)
+        public ActionResult<IEnumerable<Blog>> GetUserBlogs(string userID)
         {
             //todo: return not found etc
             return repository.GetUserBlogs(userID).ToList();

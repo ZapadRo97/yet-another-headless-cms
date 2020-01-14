@@ -27,7 +27,7 @@ namespace YAHCMS.BlogService.Tests.Integration
             testServer = new TestServer(new  WebHostBuilder().UseStartup<Startup>());
             testClient = testServer.CreateClient();
 
-            someBlog = new Blog(1, "name", "desc");
+            someBlog = new Blog("tt", "name", "desc");
             somePost = new Post("title", "content");
         }
 
@@ -67,7 +67,7 @@ namespace YAHCMS.BlogService.Tests.Integration
         {
             await AddBlog();
 
-            var getResponse = await testClient.GetAsync("/api/blogs/user/1");
+            var getResponse = await testClient.GetAsync("/api/blogs/user/tt");
                 getResponse.EnsureSuccessStatusCode();
 
             string raw = await getResponse.Content.ReadAsStringAsync();
@@ -85,7 +85,7 @@ namespace YAHCMS.BlogService.Tests.Integration
         public async void AddPostToBlog()
         {
             
-            var getResponse = await testClient.GetAsync("/api/blogs/user/1");
+            var getResponse = await testClient.GetAsync("/api/blogs/user/tt");
                 getResponse.EnsureSuccessStatusCode();
 
             string raw = await getResponse.Content.ReadAsStringAsync();
@@ -123,7 +123,7 @@ namespace YAHCMS.BlogService.Tests.Integration
 
         [Theory]
         [InlineData("/api/blogs/9999")]
-        [InlineData("/api/blogs/users/9999")]
+        [InlineData("/api/blogs/users/aaaa")]
         [InlineData("api/blogs/1/posts/9999")]
         [InlineData("api/blogs/9999/posts")]
         [InlineData("api/blogs/9999/posts/9999")]
@@ -212,7 +212,7 @@ namespace YAHCMS.BlogService.Tests.Integration
         {
             Blog b = await AddBlog();
 
-            var getResponse = await testClient.GetAsync("/api/blogs/user/1");
+            var getResponse = await testClient.GetAsync("/api/blogs/user/tt");
                 getResponse.EnsureSuccessStatusCode();
 
             string raw = await getResponse.Content.ReadAsStringAsync();
@@ -223,7 +223,7 @@ namespace YAHCMS.BlogService.Tests.Integration
             var deleteResponse = await testClient.DeleteAsync($"api/blogs/{b.ID}");
             deleteResponse.EnsureSuccessStatusCode();
 
-            getResponse = await testClient.GetAsync("/api/blogs/user/1");
+            getResponse = await testClient.GetAsync("/api/blogs/user/tt");
                 getResponse.EnsureSuccessStatusCode();
 
             raw = await getResponse.Content.ReadAsStringAsync();
