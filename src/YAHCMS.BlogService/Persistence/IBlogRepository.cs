@@ -9,6 +9,7 @@ namespace YAHCMS.BlogService.Persistence
     {
         IEnumerable<Blog> GetUserBlogs(string userID);
         Blog GetBlog(long blogID);
+        List<long> GetAllIds();
         Blog Add(Blog blog);
         Blog Delete(long blogID);
         Blog Update(Blog blog);

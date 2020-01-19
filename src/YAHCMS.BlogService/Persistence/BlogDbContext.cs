@@ -11,6 +11,10 @@ namespace YAHCMS.BlogService.Persistence
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder mb)
+        {
+            
+        }
         public DbSet<Blog> blogs {get; set;}
         public DbSet<Post> posts {get; set;}
     }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using YAHCMS.BlogService.Models;
 using YAHCMS.BlogService.Persistence;
+using YAHCMS.BlogService.Extensions;
 
 namespace YAHCMS.BlogService.Controllers
 {
@@ -28,6 +29,16 @@ namespace YAHCMS.BlogService.Controllers
         {
             //todo: return not found etc
             return repository.GetUserBlogs(userID).ToList();
+        }
+
+        [HttpGet("random/{limit}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<List<long>> GetRandomBlogIds(int limit)
+        {
+            var ids = repository.GetAllIds();
+            ids.Shuffle();
+
+            return ids.Take(limit).ToList();
         }
 
         [HttpGet("{blogID}")]

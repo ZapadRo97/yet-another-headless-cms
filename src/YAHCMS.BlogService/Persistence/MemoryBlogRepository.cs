@@ -124,5 +124,10 @@ namespace YAHCMS.BlogService.Persistence
             return blog;
 
         }
+
+        public List<long> GetAllIds()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

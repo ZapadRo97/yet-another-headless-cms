@@ -48,6 +48,11 @@ namespace YAHCMS.BlogService.Persistence
             return context.blogs.FirstOrDefault(b => b.ID == blogID);
         }
 
+        public List<long> GetAllIds()
+        {
+            return context.blogs.Select(b => b.ID).ToList();
+        }
+
         public Post GetBlogPost(long blogID, long postID)
         {
             return GetBlogPosts(blogID).FirstOrDefault(p => p.ID == postID);
